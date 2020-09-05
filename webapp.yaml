@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  rcontrol: 
+    build:
+      context: .
+      dockerfile: rcontrol.dockerfile
+    environment:
+#      - FLASK_APP=application
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ${PWD}:/opt/code
+    ports: 
+      - "5000:5000"
+  db:
+    build:
+      context: .
+      dockerfile: postgres_dockerfile
+    volumes:
+      - ${PWD}/db:/var/lib/postgresql/data    
+#      - ${PWD}:/opt/code
+      
