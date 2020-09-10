@@ -15,8 +15,10 @@ services:
   db:
     build:
       context: .
-      dockerfile: postgres_dockerfile
+      dockerfile: postgres.dockerfile
     volumes:
-      - ${PWD}/db:/var/lib/postgresql/data    
+      - rcontrol_db:/var/lib/postgresql/data    
 #      - ${PWD}:/opt/code
-      
+
+volumes:
+  rcontrol_db:
