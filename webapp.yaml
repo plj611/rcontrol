@@ -10,8 +10,9 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ${PWD}:/opt/code
-    ports: 
-      - "5000:5000"
+#    ports: 
+#      - "5000:5000"
+    command: ["gunicorn", "-b", "0.0.0.0:5000", "wsgi:app"]
   db:
     build:
       context: .
@@ -19,6 +20,12 @@ services:
     volumes:
       - rcontrol_db:/var/lib/postgresql/data    
 #      - ${PWD}:/opt/code
+  nginx:
+    image: nginx
+    volumes:
+      - ${PWD}/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
 
 volumes:
   rcontrol_db:
