@@ -51,4 +51,23 @@
    
    ```
 
-   
+4. docker-compose -f webapp.yaml kill certbot 
+
+5. Modify the cerbot service in webapp.yaml section by
+
+   ```
+   #entrypoint: ["sleep", "12h"]
+   entrypoint: ["/bin/sh", "-c", "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;"]
+   ```
+
+6. docker-compose -f webapp.yaml up -d to start cerbot
+
+7. docker-compose -f webapp.yaml kill nginx
+
+8. Add command to the nginx service in webapp.yaml section
+
+   ```
+   command: ["/bin/sh", "-c", "while :; do sleep 6h & wait $${!}; nginx -s reload; nginx -g \"daemon off\"; done"]
+   ```
+
+9. docker-compose -f webapp.yaml up -d to start nginx
