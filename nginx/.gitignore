@@ -2,3 +2,4 @@
 !certbot
 !.gitignore
 !options-ssl-nginx.conf
+!README.md
