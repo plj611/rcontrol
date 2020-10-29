@@ -16,7 +16,8 @@ class Config:
     API_AUDIENCE = environ.get('API_AUDIENCE')
     ALGORITHMS = environ.get('ALGORITHMS')
     ALGORITHMS = ALGORITHMS.split(';')[:-1]
-
+    MAILBOX_PATH = environ.get('MAILBOX_PATH')
+    MAIL_USER = environ.get('MAIL_USER')
 
 class ProdConfig(Config):
     FLASK_ENV = 'production'
