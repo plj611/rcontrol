@@ -18,6 +18,7 @@ class Config:
     ALGORITHMS = ALGORITHMS.split(';')[:-1]
     MAILBOX_PATH = environ.get('MAILBOX_PATH')
     MAIL_USER = environ.get('MAIL_USER')
+    PAYLOAD = environ.get('PAYLOAD')
 
 class ProdConfig(Config):
     FLASK_ENV = 'production'

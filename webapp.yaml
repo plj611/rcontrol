@@ -10,8 +10,8 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ${PWD}:/opt/code
-#    ports: 
-#      - "5000:5000"
+    ports: 
+      - "5000:5000"
     command: ["gunicorn", "-b", "0.0.0.0:5000", "wsgi:app"]
   db:
     build:
@@ -48,6 +48,18 @@ services:
       - MY_DESTINATION=${MYDOMAIN}, localhost.localdomain, localhost
     ports:
       - "25:25"
+  watchmail:
+    build:
+      context: .
+      args:
+        USERID: ${USERID}
+        GROUPID: ${GROUPID}
+      dockerfile: watchmail.dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ${PWD}:/opt/code
+      - ${PWD}/postfix:/postfix
 
 volumes:
   rcontrol_db:
