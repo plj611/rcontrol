@@ -42,6 +42,9 @@ services:
     build:
       context: .
       dockerfile: postfix.dockerfile
+      args:
+        USERID: ${USERID}
+        GROUPID: ${GROUPID}
     volumes:
       - ${PWD}/postfix:/var/mail
     environment:
