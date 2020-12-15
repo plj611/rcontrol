@@ -10,8 +10,8 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ${PWD}:/opt/code
-    ports: 
-      - "5000:5000"
+#    ports: 
+#      - "5000:5000"
     command: ["gunicorn", "-b", "0.0.0.0:5000", "wsgi:app"]
   db:
     build:
