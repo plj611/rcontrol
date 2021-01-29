@@ -3,8 +3,19 @@ import config
 import mailbox
 import http.client
 import json
+import signal
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileModifiedEvent
+
+class CatchTerm():
+    def __init__(self):
+        signal.signal(signal.SIGINT, self.exit_gracefully)
+        signal.signal(signal.SIGTERM, self.exit_gracefully)
+        self.kill_now = False
+
+    def exit_gracefully(self, signum, frame):
+        print('Exit now!!!')
+        self.kill_now = True
 
 class MyFileSystemEventHandler(FileSystemEventHandler):
 
@@ -66,9 +77,12 @@ event_handler = MyFileSystemEventHandler()
 observer = Observer()
 observer.schedule(event_handler, config.DevConfig.MAILBOX_PATH, recursive=False)
 observer.start()
+
+catchterm = CatchTerm()
 try:
-    while True:
+    while not catchterm.kill_now:
         time.sleep(1)
 except KeyboardInterrupt:
-    observer.stop()
+    pass
+observer.stop()
 observer.join()

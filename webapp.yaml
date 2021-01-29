@@ -63,6 +63,7 @@ services:
     volumes:
       - ${PWD}:/opt/code
       - ${PWD}/postfix:/postfix
+    command: ["python", "watchmail.py"]
 
 volumes:
   rcontrol_db:
